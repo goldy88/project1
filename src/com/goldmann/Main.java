@@ -5,7 +5,7 @@ import java.util.Arrays;
 import static java.lang.Math.round;
 
 public class Main {
-    // <rok0> <mesic1> <den2> <prum.tep.|C3> <max.tep.|C4> <min.tep.|C5> <tlak|hPa> <rychl.vetru|m/s> <vlhkost|%> <srazky|mm>
+    // <rok0> <mesic1> <den2> <prum.tep.|C3> <max.tep.|C4> <min.tep.|C5> <tlak|hPa6> <rychl.vetru|m/s7> <vlhkost|%8> <srazky|mm>
     private static final String[] DATA = new String[]{
             "2019 7 1 24.2 35.4 18.9 986.5 2.0 64 18.9",
             "2019 7 2 22.3 27.1 17.4 988.2 3.1 60 0.0",
@@ -51,6 +51,9 @@ public class Main {
         int maxTempLine = 0;
         double minTemp = 100;
         int minTempLine = 0;
+        int numWindyDay = 0;
+        int numCalmDay = 0;
+
 
         for (int i = 0; i < DATA.length; i++) {
             suma += Double.parseDouble(DATA[i].split(" ")[3]);
@@ -62,9 +65,16 @@ public class Main {
                 minTemp = Double.parseDouble(DATA[i].split(" ")[5]);
                 minTempLine = i;
             }
+            if ((Double.parseDouble(DATA[i].split(" ")[7]) >= 4.2)) {
+                numWindyDay++;
+            }
+            if ((Double.parseDouble(DATA[i].split(" ")[7]) <= 1.8)) {
+                numCalmDay++;
 
-
+            }
         }
+
+
         System.out.println("Average temperature for the reporting period: " + round(suma / DATA.length * 100) / 100.00 + "°C");
 
         String[] maxLine = DATA[maxTempLine].split(" ");
@@ -73,6 +83,9 @@ public class Main {
         String[] minLine = DATA[minTempLine].split(" ");
         System.out.println("Minimum temperature for the reporting period: " + minLine[0] + "-" + minLine[1] + "-" + minLine[2] + " was " + minLine[5]);
 
+        System.out.println("Number of windy days: " + numWindyDay);
+
+        System.out.println("Number of calm days: " + numCalmDay);
 
     }
 
