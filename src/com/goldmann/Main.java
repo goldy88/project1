@@ -53,6 +53,9 @@ public class Main {
         int minTempLine = 0;
         int numWindyDay = 0;
         int numCalmDay = 0;
+        float sumSrazek10 = 0;
+        double sumSrazek20 = 0;
+        double sumSrazek30 = 0;
 
 
         for (int i = 0; i < DATA.length; i++) {
@@ -70,8 +73,17 @@ public class Main {
             }
             if ((Double.parseDouble(DATA[i].split(" ")[7]) <= 1.8)) {
                 numCalmDay++;
-
             }
+            if ((Double.parseDouble(DATA[i].split(" ")[2]) <= 10)) {
+                sumSrazek10 += Double.parseDouble(DATA[i].split(" ")[9]);
+                System.out.println(sumSrazek10);
+            } else if ((Double.parseDouble(DATA[i].split(" ")[2]) <= 20)) {
+                sumSrazek20 += Double.parseDouble(DATA[i].split(" ")[9]);
+            } else {
+                sumSrazek30 += Double.parseDouble(DATA[i].split(" ")[9]);
+            }
+
+
         }
 
 
@@ -87,6 +99,7 @@ public class Main {
 
         System.out.println("Number of calm days: " + numCalmDay);
 
+        System.out.println("Precipitation summary in month decades: " + sumSrazek10 + "mm - " + sumSrazek20 + "mm - " + + sumSrazek30 + "mm");
     }
 
 }
